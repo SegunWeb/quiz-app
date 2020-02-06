@@ -1,0 +1,7 @@
+.items-wrapp {
+    padding: 5px 0 25px 0!important;
+    border: 1px solid #0075e8;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin: 20px auto !important;
+}

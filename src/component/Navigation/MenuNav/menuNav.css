@@ -1,0 +1,25 @@
+.menu-box {
+    margin: 0 20px !important;
+    position: absolute;
+    z-index: 100;
+}
+.menu-box.active {
+    display: block !important;
+}
+.menu-box.close {
+    display: none !important;
+}
+
+.menu-switch {
+    font-size: 30px;
+    padding: 5px;
+    margin: 10px;
+    position: relative;
+    z-index: 100;
+}
+.menu-switch.fa-times {
+    color: #b21e1e;
+}
+.menu-switch.fa-bars {
+    color: #0075e8;
+}

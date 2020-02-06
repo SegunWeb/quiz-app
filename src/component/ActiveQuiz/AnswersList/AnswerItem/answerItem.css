@@ -1,0 +1,22 @@
+.item-quiz {
+    border: 1px solid #5f93e8 !important;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 5px !important;
+    margin: 5px auto;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: transparent;
+}
+.item-quiz:hover {
+    background-color: #77cbff;
+}
+
+.item-quiz.error {
+    background-color: tomato;
+    border: 1px solid tomato !important;
+}
+.item-quiz.success {
+    background-color: #42d48c;
+    border: 1px solid #42d48c !important;
+}

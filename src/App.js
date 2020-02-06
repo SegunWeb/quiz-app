@@ -1,25 +1,15 @@
 import React from 'react';
+import { Container } from 'semantic-ui-react'
 import Layout from "./hoc/Layout/Layout";
-import { Menu } from 'semantic-ui-react'
 import Quiz from "./containers/Quiz/Quiz";
 
 function App() {
   return (
-    <div>
-        <Menu>
-            <Menu.Item>
-                Editorials
-            </Menu.Item>
-            <Menu.Item>
-                Reviews
-            </Menu.Item>
-        </Menu>
-
+      <Container fluid>
         <Layout>
-            <h2>layout</h2>
             <Quiz/>
         </Layout>
-    </div>
+      </Container>
   );
 }
 
