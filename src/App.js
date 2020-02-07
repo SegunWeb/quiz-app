@@ -12,7 +12,7 @@ const App = () => {
             <Switch>
                 <Route path={'/'} exact component={HomePage}/>
                 <Route path={"/quiz"} component={Quiz}/>
-                <Route render={() => (<h2>this is not path... 404</h2>)}/>
+                <Redirect render={() => (<h2>this is not path... 404</h2>)}/>
             </Switch>
 
         </Layout>
