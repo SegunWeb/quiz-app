@@ -1,8 +1,10 @@
 import React from 'react';
 import { Menu } from 'semantic-ui-react'
 import Backdrop from "../../UI/Backdrop/Backdrop";
+import {Link} from "react-router-dom";
 
 import './menuNav.css'
+
 
 
 const MenuNav = ({activeItem, handleItemClick, menu, onToggle}) => {
@@ -14,7 +16,7 @@ const MenuNav = ({activeItem, handleItemClick, menu, onToggle}) => {
     ];
     const clsMenu =  [
         'menu-box',
-        menu ? 'active' : 'close'
+        menu ? 'show' : 'hide'
     ];
 
     return (
@@ -23,9 +25,11 @@ const MenuNav = ({activeItem, handleItemClick, menu, onToggle}) => {
 
             <Menu className={clsMenu.join('  ')} inverted vertical>
                 <Menu.Item
+                    as={ Link }
                     name={'home'}
                     active={activeItem === 'home'}
                     onClick={handleItemClick}
+                    to='/'
                 >
                     Главная
                 </Menu.Item>
@@ -33,6 +37,8 @@ const MenuNav = ({activeItem, handleItemClick, menu, onToggle}) => {
                     name={'quiz'}
                     active={activeItem === 'quiz'}
                     onClick={handleItemClick}
+                    as={ Link }
+                    to='/quiz'
                 >
                     Опросы
                 </Menu.Item>

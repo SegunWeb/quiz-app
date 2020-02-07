@@ -3,7 +3,7 @@ import {Header, Button } from "semantic-ui-react";
 
 import './finishQuiz.css'
 
-const FinishQuiz = ({results, quiz, onRetry }) => {
+const FinishQuiz = ({results, quiz, onRetry, goToHomePage }) => {
 
     const successCount = Object.keys(results).reduce((total, key) => {
         if(results[key]=== 'success') {
@@ -11,6 +11,8 @@ const FinishQuiz = ({results, quiz, onRetry }) => {
         }
         return total;
     }, 0);
+
+
 
     return (
         <div>
@@ -39,7 +41,7 @@ const FinishQuiz = ({results, quiz, onRetry }) => {
                 <p>Правильно {successCount} из {quiz.length}</p>
 
                 <div>
-                    <Button primary>Главная</Button>
+                    <Button onClick={goToHomePage} primary>Главная</Button>
                     <Button onClick={onRetry} secondary>Повторить</Button>
                 </div>
             </div>

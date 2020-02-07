@@ -1,16 +1,22 @@
 import React from 'react';
+import {Route, Switch} from 'react-router-dom';
 import { Container } from 'semantic-ui-react'
 import Layout from "./hoc/Layout/Layout";
+import HomePage from "./component/Pages/HomePage/HomePage";
 import Quiz from "./containers/Quiz/Quiz";
 
-function App() {
+const App = () => {
   return (
       <Container fluid>
         <Layout>
-            <Quiz/>
+            <Switch>
+                <Route path={'/'} exact component={HomePage}/>
+                <Route path={"/quiz"} component={Quiz}/>
+                <Route render={() => (<h2>this is not path... 404</h2>)}/>
+            </Switch>
+
         </Layout>
       </Container>
   );
-}
-
+};
 export default App;

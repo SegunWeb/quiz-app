@@ -84,7 +84,6 @@ class Quiz extends Component {
         }
     };
 
-
     retryHandler = () => {
         this.setState({
             activeQuistions: 0,
@@ -93,7 +92,14 @@ class Quiz extends Component {
             results: {}
 
         })
-    }
+    };
+
+    goToHomePage = () => {
+        this.props.history.push({
+            pathname: '/'
+        })
+    };
+
 
 
     render() {
@@ -110,6 +116,7 @@ class Quiz extends Component {
                             results={results}
                             quiz={quiz}
                             onRetry={this.retryHandler}
+                            goToHomePage={this.goToHomePage}
                         />
                         :  <ActiveQuiz
                             answers={quiz[activeQuistions].answers}

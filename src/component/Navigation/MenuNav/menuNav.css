@@ -3,13 +3,12 @@
     position: absolute;
     z-index: 100;
 }
-.menu-box.active {
+.menu-box.show {
     display: block !important;
 }
-.menu-box.close {
+.menu-box.hide {
     display: none !important;
 }
-
 .menu-switch {
     font-size: 30px;
     padding: 5px;
@@ -22,4 +21,7 @@
 }
 .menu-switch.fa-bars {
     color: #0075e8;
+}
+a.active {
+    background-color: #0075e8 !important;
 }
