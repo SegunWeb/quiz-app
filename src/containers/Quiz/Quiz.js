@@ -38,6 +38,11 @@ class Quiz extends Component {
         ]
     };
 
+
+    componentDidMount() {
+        console.log('Quiz Id = ', this.props.match.params.id)
+    }
+
     onAnswerClick = (answerId) => {
         console.log(answerId);
         const {quiz, activeQuistions, answerState, results} = this.state;
