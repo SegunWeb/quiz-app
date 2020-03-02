@@ -15,6 +15,7 @@ import "./auth.css"
 class Auth extends Component {
 
     state = {
+       isFormValid: false,
       formControls: {
           email: {
             value: '',
@@ -85,8 +86,13 @@ class Auth extends Component {
 
         formControls[controlName] = control;
 
+        let isFormValid = true;
+        Object.keys(formControls).forEach(name => {
+            isFormValid = formControls[name].valid && isFormValid
+        });
+
         this.setState({
-            formControls
+            formControls, isFormValid
         })
     };
 
@@ -113,12 +119,20 @@ class Auth extends Component {
     render() {
         return (
             <div className='auth-wrap'>
-                <h1 className='auth-title'>Auth</h1>
+                <h1 className='auth-q-title'>Auth</h1>
                 <Form onSubmit={this.subHandler}>
                     {this.renderInput()}
 
-                    <Button color='blue' onClick={this.loginHandler}>Submit</Button>
-                    <Button color='green' onClick={this.registHandler}>Register</Button>
+                    <Button
+                        color='blue'
+                        onClick={this.loginHandler}
+                        disabled={!this.state.isFormValid}
+                    >Submit</Button>
+                    <Button
+                        color='green'
+                        onClick={this.registHandler}
+                        disabled={!this.state.isFormValid}
+                    >Register</Button>
                 </Form>
             </div>
         );

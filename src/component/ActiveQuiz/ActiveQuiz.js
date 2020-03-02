@@ -4,20 +4,20 @@ import AnswersList from "./AnswersList/AnswersList";
 
 import './activeQuiz.css'
 
-const ActiveQuiz = ({questions, answers, onAnswerClick, quizLength, answerNumb, answerState}) => {
+const ActiveQuiz = (props) => {
         return (
             <Grid columns={1} className={'items-wrapp'}>
                 <Grid.Column>
                     <Label as='a' color='red' ribbon>
-                        {answerNumb} из {quizLength}
+                        {props.answerNumb} из {props.quizLength}
                     </Label>
-                    <h3><strong>{answerNumb}</strong>&nbsp;{questions}</h3>
+                    <h3><strong>{props.answerNumb}</strong>&nbsp;{props.questions}</h3>
                 </Grid.Column>
 
                 <AnswersList
-                    answers={answers}
-                    onAnswerClick={onAnswerClick}
-                    answerState={answerState}
+                    answers={props.answers}
+                    onAnswerClick={props.onAnswerClick}
+                    answerState={props.answerState}
                 />
             </Grid>
         );

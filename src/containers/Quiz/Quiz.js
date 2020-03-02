@@ -1,52 +1,42 @@
 import React, {Component} from 'react';
-import { Header, } from 'semantic-ui-react'
+import {Header, Loader,} from 'semantic-ui-react'
 import ActiveQuiz from "../../component/ActiveQuiz/ActiveQuiz";
 import FinishQuiz from "../../component/FinishQuiz/FinishQuiz";
 
 import './quiz.css'
+import axios from "../../axios/axiosQuiz";
 
 class Quiz extends Component {
 
     state = {
         results: {},
         isFinish: false,
-        activeQuistions: 0,
+        activeQuestions: 0,
         answerState: null,
-        quiz: [
-            {
-                questions: 'Какого цвета море?',
-                rightAnswerId: 1,
-                id: 1,
-                answers: [
-                    {text: 'Черное', id: 1},
-                    {text: 'Синее', id: 2},
-                    {text: 'Красное', id: 3},
-                    {text: 'Зеленое', id: 4}
-                ]
-            },
-            {
-                questions: 'Какого черта?',
-                rightAnswerId: 2,
-                id: 2,
-                answers: [
-                    {text: 'Потому что', id: 1},
-                    {text: 'Незнаю', id: 2},
-                    {text: 'Так уж бывает', id: 3},
-                    {text: 'Зеленый', id: 4}
-                ]
-            }
-        ]
+        quiz: [],
+        loading: true,
     };
 
 
-    componentDidMount() {
-        console.log('Quiz Id = ', this.props.match.params.id)
+   async componentDidMount() {
+       try {
+           const res = await axios.get(`/quizes/${this.props.match.params.id}.json`);
+           const quiz = res.data;
+
+           this.setState({
+               quiz,
+               loading: false
+           })
+       }
+       catch(e) {
+           console.log(e)
+       }
     }
 
     onAnswerClick = (answerId) => {
         console.log(answerId);
-        const {quiz, activeQuistions, answerState, results} = this.state;
-        const question = quiz[activeQuistions];
+        const {quiz, activeQuestions, answerState, results} = this.state;
+        const question = quiz[activeQuestions];
 
         if(answerState) {
             const key = Object.keys(answerState)[0];
@@ -66,7 +56,7 @@ class Quiz extends Component {
             });
 
             const timer = setTimeout(() => {
-                if(activeQuistions + 1 === quiz.length){
+                if(activeQuestions + 1 === quiz.length){
                     console.log('end');
                     this.setState({
                         isFinish: true,
@@ -74,7 +64,7 @@ class Quiz extends Component {
 
                 } else {
                     this.setState({
-                        activeQuistions: activeQuistions + 1,
+                        activeQuestions: activeQuestions + 1,
                         answerState: null
                     })
                 }
@@ -91,7 +81,7 @@ class Quiz extends Component {
 
     retryHandler = () => {
         this.setState({
-            activeQuistions: 0,
+            activeQuestions: 0,
             answerState: null,
             isFinish: false,
             results: {}
@@ -108,15 +98,16 @@ class Quiz extends Component {
 
 
     render() {
-        const {quiz, activeQuistions, answerState, isFinish, results} = this.state;
+        const {quiz, activeQuestions, answerState, isFinish, results} = this.state;
 
         return (
             <div className={'item-wrapp'}>
                 <Header as='h2' color='blue' textAlign='center' block>
                     Ответьте на вопросы
                 </Header>
-                {
-                    isFinish ?
+                { this.state.loading ?
+                    <Loader/>
+                    : isFinish ?
                         <FinishQuiz
                             results={results}
                             quiz={quiz}
@@ -124,11 +115,11 @@ class Quiz extends Component {
                             goToHomePage={this.goToHomePage}
                         />
                         :  <ActiveQuiz
-                            answers={quiz[activeQuistions].answers}
-                            questions={quiz[activeQuistions].questions}
+                            answers={quiz[activeQuestions].answer}
+                            questions={quiz[activeQuestions].question}
                             onAnswerClick={this.onAnswerClick}
                             quizLength={quiz.length}
-                            answerNumb={activeQuistions + 1}
+                            answerNumb={activeQuestions + 1}
                             answerState={answerState}
                         />
                 }
