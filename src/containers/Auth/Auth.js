@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import { Button, Form } from 'semantic-ui-react'
 import Input from "../../component/UI/Input/Input";
 import is from 'is_js'
+import axios from 'axios'
 
 import "./auth.css"
-
 
 // function validateEmail(email) {
 //     // eslint-disable-next-line
@@ -45,12 +45,37 @@ class Auth extends Component {
       }
     };
 
-    registHandler = () => {
+    registHandler = async () => {
+         const authData = {
+                email: this.state.formControls.email.value,
+                password: this.state.formControls.password.value,
+                returnSecureToken: true,
+         };
+         try {
+             const res = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyA3HRrpLACHD6TPwoQ_PLSKPJtXEs98VK4', authData);
+
+             console.log(res.data);
+         } catch (e) {
+             console.log(e);
+         }
 
     };
-    loginHandler = () => {
+    loginHandler = async () => {
+        const authData = {
+            email: this.state.formControls.email.value,
+            password: this.state.formControls.password.value,
+            returnSecureToken: true,
+        };
+        try {
+            const res = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyA3HRrpLACHD6TPwoQ_PLSKPJtXEs98VK4', authData);
 
+            console.log(res.data);
+        } catch (e) {
+            console.log(e);
+        }
     };
+
+
     subHandler = (e) => {
         e.preventDefault()
     };

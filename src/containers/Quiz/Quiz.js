@@ -17,7 +17,6 @@ class Quiz extends Component {
         loading: true,
     };
 
-
    async componentDidMount() {
        try {
            const res = await axios.get(`/quizes/${this.props.match.params.id}.json`);
@@ -34,13 +33,13 @@ class Quiz extends Component {
     }
 
     onAnswerClick = (answerId) => {
-        console.log(answerId);
+
         const {quiz, activeQuestions, answerState, results} = this.state;
         const question = quiz[activeQuestions];
 
         if(answerState) {
             const key = Object.keys(answerState)[0];
-            if(answerState[key]=== 'success') {
+            if(answerState[key] === 'success') {
                 return
             }
         }
@@ -56,8 +55,7 @@ class Quiz extends Component {
             });
 
             const timer = setTimeout(() => {
-                if(activeQuestions + 1 === quiz.length){
-                    console.log('end');
+                if(this.isQuizFinished()){
                     this.setState({
                         isFinish: true,
                     })
@@ -73,11 +71,15 @@ class Quiz extends Component {
         } else {
             results[question.id] = 'error';
             this.setState({
-                answerState: {[question.id] : 'error'},
+                answerState: {[answerId] : 'error'},
                 results,
             });
         }
     };
+
+   isQuizFinished() {
+       return this.state.activeQuestions + 1 === this.state.quiz.length;
+   }
 
     retryHandler = () => {
         this.setState({
@@ -98,14 +100,14 @@ class Quiz extends Component {
 
 
     render() {
-        const {quiz, activeQuestions, answerState, isFinish, results} = this.state;
+        const {quiz, activeQuestions, answerState, isFinish, results, loading } = this.state;
 
         return (
             <div className={'item-wrapp'}>
                 <Header as='h2' color='blue' textAlign='center' block>
                     Ответьте на вопросы
                 </Header>
-                { this.state.loading ?
+                { loading ?
                     <Loader/>
                     : isFinish ?
                         <FinishQuiz
