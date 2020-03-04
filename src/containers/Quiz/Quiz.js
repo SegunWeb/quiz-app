@@ -1,40 +1,25 @@
 import React, {Component} from 'react';
-import {Header, Loader,} from 'semantic-ui-react'
+import {Header} from 'semantic-ui-react'
+import Loader from '../../component/UI/Loader/Loader'
 import ActiveQuiz from "../../component/ActiveQuiz/ActiveQuiz";
 import FinishQuiz from "../../component/FinishQuiz/FinishQuiz";
+import {connect} from 'react-redux'
+
+import {fetchQuizById} from "../../redux/actions/quizList_actions";
 
 import './quiz.css'
-import axios from "../../axios/axiosQuiz";
+
 
 class Quiz extends Component {
 
-    state = {
-        results: {},
-        isFinish: false,
-        activeQuestions: 0,
-        answerState: null,
-        quiz: [],
-        loading: true,
-    };
 
    async componentDidMount() {
-       try {
-           const res = await axios.get(`/quizes/${this.props.match.params.id}.json`);
-           const quiz = res.data;
-
-           this.setState({
-               quiz,
-               loading: false
-           })
-       }
-       catch(e) {
-           console.log(e)
-       }
+       this.props.fetchQuizById(this.props.match.params.id)
     }
 
     onAnswerClick = (answerId) => {
 
-        const {quiz, activeQuestions, answerState, results} = this.state;
+        const {quiz, activeQuestions, answerState, results} = this.props;
         const question = quiz[activeQuestions];
 
         if(answerState) {
@@ -78,7 +63,7 @@ class Quiz extends Component {
     };
 
    isQuizFinished() {
-       return this.state.activeQuestions + 1 === this.state.quiz.length;
+       return this.props.activeQuestions + 1 === this.props.quiz.length;
    }
 
     retryHandler = () => {
@@ -100,14 +85,14 @@ class Quiz extends Component {
 
 
     render() {
-        const {quiz, activeQuestions, answerState, isFinish, results, loading } = this.state;
+        const {quiz, activeQuestions, answerState, isFinish, results, loading } = this.props;
 
         return (
             <div className={'item-wrapp'}>
                 <Header as='h2' color='blue' textAlign='center' block>
                     Ответьте на вопросы
                 </Header>
-                { loading ?
+                { loading || !quiz ?
                     <Loader/>
                     : isFinish ?
                         <FinishQuiz
@@ -131,4 +116,20 @@ class Quiz extends Component {
     }
 }
 
-export default Quiz;
+const mapStateToProps = ({quiz: {results, isFinish, activeQuestions, answerState, quiz, loading}}) => {
+    return {
+        results,
+        isFinish,
+        activeQuestions,
+        answerState,
+        quiz,
+        loading,
+    }
+};
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchQuizById: id => dispatch(fetchQuizById(id)),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Quiz);
