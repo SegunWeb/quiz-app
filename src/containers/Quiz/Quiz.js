@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {Header} from 'semantic-ui-react'
-import Loader from '../../component/UI/Loader/Loader'
-import ActiveQuiz from "../../component/ActiveQuiz/ActiveQuiz";
-import FinishQuiz from "../../component/FinishQuiz/FinishQuiz";
+import Loader from '../../components/UI/Loader/Loader'
+import ActiveQuiz from "../../components/ActiveQuiz/ActiveQuiz";
+import FinishQuiz from "../../components/FinishQuiz/FinishQuiz";
 import {connect} from 'react-redux'
 
 import {fetchQuizById, quizAnswerClick, retryQuiz} from "../../redux/actions/quizList_actions";

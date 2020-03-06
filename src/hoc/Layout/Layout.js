@@ -1,12 +1,15 @@
 import React, {Component} from 'react';
 import MenuNav from "../../containers/Navigation/MenuNav/MenuNav";
+import {connect} from 'react-redux'
 
 class Layout extends Component {
 
     render() {
         return (
             <div>
-                <MenuNav/>
+                <MenuNav
+                    isAuth={this.props.isAuth}
+                />
                 <main>
                     {this.props.children}
                 </main>
@@ -15,4 +18,10 @@ class Layout extends Component {
     }
 }
 
-export default Layout;
+const mapStateToProps = (state) => {
+    return {
+       isAuth: !!state.auth.token
+    }
+};
+
+export default connect(mapStateToProps)(Layout);

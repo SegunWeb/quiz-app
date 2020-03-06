@@ -1,6 +1,6 @@
 import React, {Component, Fragment } from 'react';
-import Input from "../../component/UI/Input/Input";
-import SelectIn from "../../component/UI/Select/Select";
+import Input from "../../components/UI/Input/Input";
+import SelectIn from "../../components/UI/Select/Select";
 import {Button, Form} from "semantic-ui-react";
 import {createControl, validate, validateForm} from '../../formFrame/FormFramework'
 import {connect} from 'react-redux'

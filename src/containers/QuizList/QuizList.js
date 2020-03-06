@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
-import Loader from '../../component/UI/Loader/Loader'
+import Loader from '../../components/UI/Loader/Loader'
 import {connect} from 'react-redux'
 import {fetchQuizes} from '../../redux/actions/quizList_actions'
 

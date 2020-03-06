@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Button, Form } from 'semantic-ui-react'
-import Input from "../../component/UI/Input/Input";
+import Input from "../../components/UI/Input/Input";
 import is from 'is_js'
 import {auth} from '../../redux/actions/auth_actions'
 import {connect} from 'react-redux'
